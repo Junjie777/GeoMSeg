@@ -13,7 +13,7 @@ import math
 
 
 class Args(object):
-    input_image_path = 'image/map05.png'  # image/coral.jpg image/tiger.jpg
+    input_image_path = 'image/map03.png'  # image/coral.jpg image/tiger.jpg
     train_epoch = 2 ** 6
     mod_dim1 = 64
     mod_dim2 = 45
