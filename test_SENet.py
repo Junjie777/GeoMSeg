@@ -11,14 +11,14 @@ import torch.nn.functional as F
 
 
 class Args(object):
-    input_image_path = 'image/map03.png'  # image/coral.jpg image/tiger.jpg
+    input_image_path = 'image/map03.png'
     train_epoch = 2 ** 6
     mod_dim1 = 64
     mod_dim2 = 45
     gpu_id = 0
 
-    min_label_num = 4  # if the label number small than it, break loop
-    max_label_num = 256  # if the label number small than it, start to show result image.
+    min_label_num = 4
+    max_label_num = 256
 
 
 class MyNet(nn.Module):
@@ -79,9 +79,7 @@ def run():
     model = MyNet(inp_dim=3, mod_dim1=args.mod_dim1, mod_dim2=args.mod_dim2).to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=5e-2, momentum=0.9)
-    #optimizer = torch.optim.Adam(model.parameters(), lr=5e-2)
-    #optimizer = torch.optim.SGD(model.parameters(), lr=8e-2, momentum=0.9)
-    #optimizer = torch.optim.RMSprop(model.parameters(), lr=5e-2, momentum=0.9)
+
 
     image_flatten = image.reshape((-1, 3))
     print('image_flatten', image_flatten.shape)

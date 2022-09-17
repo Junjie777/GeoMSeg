@@ -123,9 +123,9 @@ class EfficientNet(nn.Module):
         self.stage3 = self.make_layer(self._calculate_width(64), self._calculate_width(128), kernel_size=3, stride=1, block=self._calculate_depth(2))
         self.stage4 = self.make_layer(self._calculate_width(128), self._calculate_width(86), kernel_size=3, stride=1, block=self._calculate_depth(2))
         self.stage5 = self.make_layer(self._calculate_width(86), self._calculate_width(64), kernel_size=3, stride=1, block=self._calculate_depth(3))
-        # self.stage6 = self.make_layer(self._calculate_width(80), self._calculate_width(112), kernel_size=5, stride=1, block=self._calculate_depth(3))
-        # self.stage7 = self.make_layer(self._calculate_width(112), self._calculate_width(192), kernel_size=5, stride=2, block=self._calculate_depth(4))
-        # self.stage8 = self.make_layer(self._calculate_width(192), self._calculate_width(64), kernel_size=3, stride=1, block=self._calculate_depth(1))
+        self.stage6 = self.make_layer(self._calculate_width(80), self._calculate_width(112), kernel_size=5, stride=1, block=self._calculate_depth(3))
+        self.stage7 = self.make_layer(self._calculate_width(112), self._calculate_width(192), kernel_size=5, stride=2, block=self._calculate_depth(4))
+        self.stage8 = self.make_layer(self._calculate_width(192), self._calculate_width(64), kernel_size=3, stride=1, block=self._calculate_depth(1))
 
         # self.classifier = nn.Sequential(
         #     Conv1x1BNAct(320, 1280),

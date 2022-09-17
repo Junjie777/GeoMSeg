@@ -11,14 +11,14 @@ import torch.nn.functional as F
 
 
 class Args(object):
-    input_image_path = 'image/map03.png'  # image/coral.jpg image/tiger.jpg
+    input_image_path = 'image/map03.png'
     train_epoch = 2 ** 6
     # mod_dim1 = 64
     # mod_dim2 = 45
     gpu_id = 0
 
-    min_label_num = 4  # if the label number small than it, break loop
-    max_label_num = 256  # if the label number small than it, start to show result image.
+    min_label_num = 4
+    max_label_num = 256
 
 
 class DoubleConv(nn.Module):
@@ -62,17 +62,15 @@ class Up(nn.Module):
     def __init__(self, in_channel, out_channel, bilinear=True):
         super(Up, self).__init__()
 
-        # if bilinear, use the normal convolutions to reduce the number of channels
         if bilinear:
             self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-            self.conv = DoubleConv(in_channel, out_channel, in_channel // 2) #in_channel//2 整数除法
+            self.conv = DoubleConv(in_channel, out_channel, in_channel // 2)
         else:
             self.up = nn.ConvTranspose2d(in_channel, in_channel // 2, kernel_size=2, stride=2)
             self.conv = DoubleConv(in_channel, out_channel)
 
     def forward(self, x1, x2):
         x1 = self.up(x1)
-        # input shape is BCHW
         diffY = x2.shape[2] - x1.shape[2]
         diffX = x2.shape[3] - x1.shape[3]
 
@@ -104,23 +102,18 @@ class UNet(nn.Module):
         self.down2 = Down(out_channel[1], out_channel[2])
         self.down3 = Down(out_channel[2], out_channel[3])
         factor = 2 if bilinear else 1
-        #self.down4 = Down(out_channel[3], out_channel[4] // factor)
 
-        #self.up1 = Up(out_channel[4], out_channel[3] // factor, bilinear)
         self.up2 = Up(out_channel[3], out_channel[2] // factor, bilinear)
         self.up3 = Up(out_channel[2], out_channel[1] // factor, bilinear)
         self.up4 = Up(out_channel[1], out_channel[0] // factor, bilinear)
 
-        #self.outc = OutConv(out_channel[0] // factor, classes)
+
 
     def forward(self, x):
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)
         x4 = self.down3(x3)
-        #x5 = self.down4(x4)
-        #x = self.up1(x5, x4)
-        #x = self.up2(x, x3)
         x = self.up2(x4, x3)
         x = self.up3(x, x2)
         x = self.up4(x, x1)
