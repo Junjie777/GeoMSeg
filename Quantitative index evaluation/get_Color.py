@@ -8,9 +8,7 @@ def capture_event(event, x, y, flags, params):
 
 
 if __name__ == '__main__':
-    # >>>>>>>>>>>>>>>>>>>>>>>>  鼠标点击选取初始点  <<<<<<<<<<<<<<<<<<<<<<<<<<
-    # image=cv2.imread('labels/549_label.png') # 加载原标签图
-    image = cv2.imread(r'C:\Users\Tiamo\Desktop\hhh\biaozhu.png')  # 加载转码后的标签图
+    image = cv2.imread(r'C:\Users\Tiamo\Desktop\hhh\biaozhu.png')
 
     window = 'click and get color'
     cv2.namedWindow(window)
