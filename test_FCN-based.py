@@ -11,7 +11,7 @@ import torch.nn.functional as F
 
 
 class Args(object):
-    input_image_path = 'image/map18.png'
+    input_image_path = 'image/map03.png'
     train_epoch = 2 ** 6
     mod_dim = 45
     gpu_id = 0
